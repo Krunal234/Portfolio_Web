@@ -1,3 +1,22 @@
+const themeButtons = document.querySelectorAll("[data-theme-option]");
+const storedTheme = localStorage.getItem("portfolio-theme") || "professional";
+
+function applyTheme(theme) {
+  document.body.dataset.theme = theme;
+  themeButtons.forEach((button) => {
+    const isActive = button.dataset.themeOption === theme;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+  localStorage.setItem("portfolio-theme", theme);
+}
+
+themeButtons.forEach((button) => {
+  button.addEventListener("click", () => applyTheme(button.dataset.themeOption));
+});
+
+applyTheme(storedTheme);
+
 const skills = [
   {
     title: "Backend & API Engineering",
