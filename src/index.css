@@ -1104,4 +1104,19 @@ body[data-theme="professional"] .contact-section {
   .contact-rail {
     display: none;
   }
+
+  .pipeline {
+    grid-template-columns: repeat(5, minmax(125px, 1fr));
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pipeline span {
+    min-width: 125px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand span:not(.brand-mark) {
+    display: none;
+  }
 }
