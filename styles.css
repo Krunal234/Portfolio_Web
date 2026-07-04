@@ -127,6 +127,105 @@ a {
   background: var(--ink);
 }
 
+.contact-rail {
+  position: fixed;
+  top: 50%;
+  left: 18px;
+  z-index: 65;
+  display: grid;
+  gap: 10px;
+  transform: translateY(-50%);
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(5, 13, 19, 0.72);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  animation: railPulse 2600ms ease 500ms 1 both;
+}
+
+.contact-rail::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.72) 34%, transparent 52%);
+  background-size: 240% 100%;
+  opacity: 0;
+  animation: railShimmer 2200ms ease 450ms 1 both;
+}
+
+.contact-rail a {
+  position: relative;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.055);
+  overflow: visible;
+  transition: transform 180ms ease, color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.contact-rail a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent, rgba(89, 230, 181, 0.28), transparent);
+  opacity: 0;
+  transform: translateX(-70%);
+  animation: iconShimmer 1850ms ease 700ms 1 both;
+}
+
+.contact-rail svg {
+  position: relative;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-rail span {
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translate(-6px, -50%);
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 7px;
+  color: var(--ink);
+  background: rgba(5, 13, 19, 0.92);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.28);
+  font-size: 0.78rem;
+  font-weight: 800;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.contact-rail a:hover,
+.contact-rail a:focus-visible {
+  transform: translateX(3px);
+  color: #061018;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--green), var(--blue));
+}
+
+.contact-rail a:hover span,
+.contact-rail a:focus-visible span {
+  transform: translate(0, -50%);
+  opacity: 1;
+}
+
 .hero {
   position: relative;
   min-height: 96svh;
@@ -562,6 +661,53 @@ h3 {
   opacity: 1;
 }
 
+@keyframes railPulse {
+  0%,
+  100% {
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: var(--shadow);
+  }
+
+  38%,
+  62% {
+    border-color: rgba(89, 230, 181, 0.64);
+    box-shadow: 0 0 0 1px rgba(89, 230, 181, 0.22), 0 24px 80px rgba(0, 0, 0, 0.45);
+  }
+}
+
+@keyframes railShimmer {
+  0% {
+    background-position: 180% 0;
+    opacity: 0;
+  }
+
+  25%,
+  68% {
+    opacity: 0.44;
+  }
+
+  100% {
+    background-position: -80% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes iconShimmer {
+  0% {
+    opacity: 0;
+    transform: translateX(-70%);
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(70%);
+  }
+}
+
 @media (max-width: 900px) {
   .nav-toggle {
     display: block;
@@ -605,6 +751,31 @@ h3 {
   .hero {
     min-height: 100svh;
     padding-top: 126px;
+  }
+
+  .contact-rail {
+    top: auto;
+    bottom: 12px;
+    left: 50%;
+    grid-template-columns: repeat(5, 44px);
+    transform: translateX(-50%);
+  }
+
+  .contact-rail a:hover,
+  .contact-rail a:focus-visible {
+    transform: translateY(-3px);
+  }
+
+  .contact-rail span {
+    top: auto;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translate(-50%, 6px);
+  }
+
+  .contact-rail a:hover span,
+  .contact-rail a:focus-visible span {
+    transform: translate(-50%, 0);
   }
 }
 
@@ -651,6 +822,15 @@ h3 {
   }
 
   .button {
+    width: 100%;
+  }
+
+  .contact-rail {
+    width: calc(100% - 24px);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .contact-rail a {
     width: 100%;
   }
 }
