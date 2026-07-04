@@ -1,23 +1,4 @@
-const themeButtons = document.querySelectorAll("[data-theme-option]");
-const storedTheme = localStorage.getItem("portfolio-theme") || "professional";
-
-function applyTheme(theme) {
-  document.body.dataset.theme = theme;
-  themeButtons.forEach((button) => {
-    const isActive = button.dataset.themeOption === theme;
-    button.classList.toggle("active", isActive);
-    button.setAttribute("aria-pressed", String(isActive));
-  });
-  localStorage.setItem("portfolio-theme", theme);
-}
-
-themeButtons.forEach((button) => {
-  button.addEventListener("click", () => applyTheme(button.dataset.themeOption));
-});
-
-applyTheme(storedTheme);
-
-const skills = [
+export const skills = [
   {
     title: "Backend & API Engineering",
     body: "Production REST APIs, ASP.NET Core MVC services, dependency injection, LINQ-heavy workflows, and secure service boundaries.",
@@ -56,7 +37,7 @@ const skills = [
   },
 ];
 
-const architecture = [
+export const architecture = [
   {
     title: "Secure API Layer",
     body: "RESTful ASP.NET Core endpoints with Redis-backed session validation, opaque tokens, OAuth2/OpenID Connect alignment, and AES-GCM protection.",
@@ -79,7 +60,7 @@ const architecture = [
   },
 ];
 
-const timeline = [
+export const timeline = [
   {
     period: "May 2026 - Present",
     title: "Senior Software Engineer | Wissen Technology",
@@ -107,7 +88,7 @@ const timeline = [
   },
 ];
 
-const projects = [
+export const projects = [
   {
     title: "Secure Login API Acceleration",
     summary: "Reduced login REST API latency by 60% using Redis-backed session validation and a secure opaque access-token system.",
@@ -145,180 +126,3 @@ const projects = [
     tags: ["MySQL", "Indexes", "Schema Design", "Query Tuning", "Data Analysis"],
   },
 ];
-
-const skillBoard = document.querySelector("#skillBoard");
-const architectureGrid = document.querySelector("#architectureGrid");
-const timelineEl = document.querySelector("#timeline");
-const projectGrid = document.querySelector("#projectGrid");
-
-function renderList(items, renderer, target) {
-  target.innerHTML = items.map(renderer).join("");
-}
-
-renderList(
-  skills,
-  (item) => `
-    <article class="skill-card" style="--accent: ${item.accent}">
-      <h3>${item.title}</h3>
-      <p>${item.body}</p>
-      <ul>${item.tags.map((tag) => `<li>${tag}</li>`).join("")}</ul>
-    </article>
-  `,
-  skillBoard
-);
-
-renderList(
-  architecture,
-  (item) => `
-    <article class="architecture-card" style="--accent: ${item.accent}">
-      <h3><strong>//</strong> ${item.title}</h3>
-      <p>${item.body}</p>
-    </article>
-  `,
-  architectureGrid
-);
-
-renderList(
-  timeline,
-  (item) => `
-    <article class="timeline-item">
-      <time>${item.period}</time>
-      <h3>${item.title}</h3>
-      <p>${item.body}</p>
-    </article>
-  `,
-  timelineEl
-);
-
-renderList(
-  projects,
-  (item, index) => `
-    <article class="project-card" tabindex="0">
-      <div>
-        <div class="project-top">
-          <span class="project-index">${String(index + 1).padStart(2, "0")}</span>
-          <button type="button" aria-label="Expand ${item.title}">+</button>
-        </div>
-        <h3>${item.title}</h3>
-        <p>${item.summary}</p>
-        <div class="project-details">
-          <div><p>${item.detail}</p></div>
-        </div>
-      </div>
-      <ul>${item.tags.map((tag) => `<li>${tag}</li>`).join("")}</ul>
-    </article>
-  `,
-  projectGrid
-);
-
-document.querySelectorAll(".project-card").forEach((card) => {
-  const button = card.querySelector("button");
-  const title = card.querySelector("h3").textContent;
-  const toggle = () => {
-    const isOpen = card.classList.toggle("is-open");
-    button.textContent = isOpen ? "-" : "+";
-    button.setAttribute("aria-label", `${isOpen ? "Collapse" : "Expand"} ${title}`);
-  };
-  button.addEventListener("click", (event) => {
-    event.stopPropagation();
-    toggle();
-  });
-  card.addEventListener("click", toggle);
-  card.addEventListener("keydown", (event) => {
-    if (event.target !== card) return;
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      toggle();
-    }
-  });
-});
-
-const header = document.querySelector(".site-header");
-const navToggle = document.querySelector(".nav-toggle");
-navToggle.addEventListener("click", () => {
-  const isOpen = header.classList.toggle("is-open");
-  navToggle.setAttribute("aria-expanded", String(isOpen));
-});
-
-document.querySelectorAll(".nav-links a").forEach((link) => {
-  link.addEventListener("click", () => {
-    header.classList.remove("is-open");
-    navToggle.setAttribute("aria-expanded", "false");
-  });
-});
-
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.14 }
-);
-
-document.querySelectorAll("[data-reveal]").forEach((el) => revealObserver.observe(el));
-
-const progress = document.querySelector(".progress");
-window.addEventListener("scroll", () => {
-  const max = document.documentElement.scrollHeight - window.innerHeight;
-  progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
-});
-
-const canvas = document.querySelector(".system-canvas");
-const ctx = canvas.getContext("2d");
-let particles = [];
-
-function resizeCanvas() {
-  const ratio = window.devicePixelRatio || 1;
-  canvas.width = Math.floor(window.innerWidth * ratio);
-  canvas.height = Math.floor(window.innerHeight * ratio);
-  canvas.style.width = `${window.innerWidth}px`;
-  canvas.style.height = `${window.innerHeight}px`;
-  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-  particles = Array.from({ length: Math.min(90, Math.floor(window.innerWidth / 15)) }, () => ({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    vx: (Math.random() - 0.5) * 0.45,
-    vy: (Math.random() - 0.5) * 0.45,
-    r: Math.random() * 1.8 + 0.7,
-  }));
-}
-
-function animateNetwork() {
-  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  particles.forEach((point, index) => {
-    point.x += point.vx;
-    point.y += point.vy;
-
-    if (point.x < 0 || point.x > window.innerWidth) point.vx *= -1;
-    if (point.y < 0 || point.y > window.innerHeight) point.vy *= -1;
-
-    ctx.beginPath();
-    ctx.arc(point.x, point.y, point.r, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(89, 230, 181, 0.72)";
-    ctx.fill();
-
-    for (let next = index + 1; next < particles.length; next += 1) {
-      const other = particles[next];
-      const distance = Math.hypot(point.x - other.x, point.y - other.y);
-      if (distance < 128) {
-        ctx.beginPath();
-        ctx.moveTo(point.x, point.y);
-        ctx.lineTo(other.x, other.y);
-        ctx.strokeStyle = `rgba(66, 198, 255, ${0.18 - distance / 900})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-    }
-  });
-  requestAnimationFrame(animateNetwork);
-}
-
-if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  resizeCanvas();
-  animateNetwork();
-  window.addEventListener("resize", resizeCanvas);
-}
