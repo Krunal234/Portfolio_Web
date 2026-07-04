@@ -62,7 +62,12 @@ const architecture = [
 
 const timeline = [
   {
-    period: "July 2025 - Present",
+    period: "May 2026 - Present",
+    title: "Senior Software Engineer | Wissen Technology",
+    body: "Working in a fintech product engineering environment on distributed microservices built with .NET 10, leading the migration from .NET 8 to .NET 10 and implementing resilience policies across multiple services to strengthen reliability and fault tolerance.",
+  },
+  {
+    period: "July 2025 - May 2026",
     title: "Senior Software Engineer | Enablistar Pvt Ltd",
     body: "Reduced login REST API latency by 60%, designed secure opaque access-token architecture, built an EF Core audit trail framework with Kafka, and delivered multi-database provider support across Oracle, PostgreSQL, SQL Server, MySQL, and SQLite.",
   },
