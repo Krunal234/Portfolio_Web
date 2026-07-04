@@ -251,6 +251,30 @@ h3 {
   margin-top: 28px;
 }
 
+.contact-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.contact-list a,
+.contact-list span {
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 7px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.045);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.contact-list a:hover,
+.contact-list a:focus-visible {
+  color: var(--ink);
+  border-color: rgba(89, 230, 181, 0.38);
+}
+
 .metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
