@@ -266,7 +266,60 @@ a {
 .hero-content {
   position: relative;
   z-index: 3;
-  width: min(830px, 100%);
+  width: min(760px, calc(100% - 330px));
+}
+
+.hero-profile {
+  position: absolute;
+  right: max(24px, calc((100vw - 1120px) / 2));
+  bottom: 58px;
+  z-index: 4;
+  width: clamp(210px, 22vw, 310px);
+  margin: 0;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(5, 13, 19, 0.68);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(18px);
+}
+
+.hero-profile::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(145deg, rgba(89, 230, 181, 0.42), transparent 34%, rgba(66, 198, 255, 0.36));
+  opacity: 0.7;
+  z-index: -1;
+}
+
+.hero-profile img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 18%;
+  border-radius: 7px;
+  filter: saturate(1.03) contrast(1.02);
+}
+
+.hero-profile figcaption {
+  display: grid;
+  gap: 4px;
+  padding: 12px 4px 4px;
+}
+
+.hero-profile strong {
+  font-size: 1rem;
+}
+
+.hero-profile span {
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.4;
 }
 
 .eyebrow {
@@ -751,6 +804,18 @@ h3 {
   .hero {
     min-height: 100svh;
     padding-top: 126px;
+  }
+
+  .hero-content {
+    width: 100%;
+  }
+
+  .hero-profile {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(290px, 78vw);
+    margin-top: 28px;
   }
 
   .contact-rail {
