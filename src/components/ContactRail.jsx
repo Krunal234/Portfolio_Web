@@ -1,4 +1,6 @@
 const ContactRail = () => {
+  const baseUrl = import.meta.env.BASE_URL;
+
   return (
     <aside className="contact-rail" aria-label="Quick contact links">
       <a href="mailto:krunalgoswami13579@gmail.com" aria-label="Email Krunal Goswami">
@@ -22,7 +24,7 @@ const ContactRail = () => {
         </svg>
         <span>LinkedIn</span>
       </a>
-      <a href="/assets/Krunal_Goswami_Senior_Software.pdf" target="_blank" rel="noreferrer" aria-label="Open resume PDF">
+      <a href={`${baseUrl}assets/Krunal_Goswami_Senior_Software.pdf`} target="_blank" rel="noreferrer" aria-label="Open resume PDF">
         <svg aria-hidden="true" viewBox="0 0 24 24">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
           <path d="M14 2v6h6" />

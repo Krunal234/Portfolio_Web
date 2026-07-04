@@ -4,6 +4,7 @@ const Hero = () => {
   const canvasRef = useRef(null);
   const [particles, setParticles] = useState([]);
   const animationRef = useRef(null);
+  const baseUrl = import.meta.env.BASE_URL;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -106,7 +107,7 @@ const Hero = () => {
 
   return (
     <section className="hero" aria-labelledby="hero-title">
-      <img className="hero-image" src="/assets/backend-hero.png" alt="" />
+      <img className="hero-image" src={`${baseUrl}assets/backend-hero.png`} alt="" />
       <canvas className="system-canvas" ref={canvasRef} aria-hidden="true"></canvas>
       <div className="hero-shade"></div>
       <div className="hero-content">
@@ -121,7 +122,7 @@ const Hero = () => {
         </p>
         <div className="hero-actions" data-reveal>
           <a className="button primary" href="#projects">View Work</a>
-          <a className="button secondary" href="/assets/Krunal_Goswami_Senior_Software.pdf" target="_blank" rel="noreferrer">Resume</a>
+          <a className="button secondary" href={`${baseUrl}assets/Krunal_Goswami_Senior_Software.pdf`} target="_blank" rel="noreferrer">Resume</a>
         </div>
         <div className="metrics" data-reveal aria-label="Career highlights">
           <article>
@@ -139,7 +140,7 @@ const Hero = () => {
         </div>
       </div>
       <figure className="hero-profile" data-reveal>
-        <img src="/assets/krunal-goswami-professional-photo.png" alt="Krunal Goswami professional portrait" />
+        <img src={`${baseUrl}assets/krunal-goswami-professional-photo.png`} alt="Krunal Goswami professional portrait" />
         <figcaption>
           <strong>Krunal Goswami</strong>
           <span>Senior Software Engineer · Mumbai</span>
