@@ -18,7 +18,7 @@ const Projects = () => {
     <section className="section" id="projects">
       <div className="section-heading" data-reveal>
         <p className="eyebrow">Showcase</p>
-        <h2>Expandable case studies for recruiter attention.</h2>
+        <h2>Detailed case studies with expandable insights</h2>
       </div>
       <div className="project-grid" data-reveal>
         {projects.map((project, index) => {
